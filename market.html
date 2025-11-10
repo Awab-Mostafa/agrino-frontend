@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Market Page</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <a href="index.html" class="logo">Our <span>Project</span></a>
+      <nav class="navbar">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">SDGs</a>
+        <a href="index.html#projects">Previous solutions</a>
+        <a href="index.html#ourteam">Our Team</a>
+      </nav>
+      <div class="header-buttons">
+        <button class="gradient-btn">
+          <a href="index.html#contact" class="gradient-btn">Contact Us</a>
+        </button>
+      </div>
+    </header>
+
+    <!-- Market items section -->
+    <section class="projects" id="market-items" style="padding-top: 10rem;">
+      <h2 class="heading">Market Items</h2>
+      <div class="projects-box1">
+        <!-- Product Card 1 -->
+        <div class="projects-card1">
+          <div class="image-container">
+            <img src="Market/IMG-20250222-WA0015.jpg" alt="Item 1 Image" />
+          </div>
+          <h3>Amistar Too</h3>
+          <p>Amistar Top is a broad-spectrum fungicide containing azoxystrobin and difenoconazole, used to protect crops from fungal diseases like leaf spots, rusts, and powdery mildew.</p>
+          <p class="price">Price: 40 EGP</p>
+          <button class="card-btn" onclick="addToCart('Amistar Too','Market/IMG-20250222-WA0015.jpg','Amistar Top is a broad-spectrum fungicide containing azoxystrobin and difenoconazole, used to protect crops from fungal diseases like leaf spots, rusts, and powdery mildew.', 40)">
+            Add to cart
+          </button>
+        </div>
+        <!-- Product Card 2 -->
+        <div class="projects-card1">
+          <div class="image-container">
+            <img src="Market/IMG-20250222-WA0014.jpg" alt="Item 2 Image" />
+          </div>
+          <h3>Fungicide</h3>
+          <p>Fungicide is a chemical or biological agent used to prevent, control, or eliminate fungal diseases in plants.</p>
+          <p class="price">Price: 45 EGP</p>
+          <button class="card-btn" onclick="addToCart('Fungicide','Market/IMG-20250222-WA0014.jpg','Fungicide is a chemical or biological agent used to prevent, control, or eliminate fungal diseases in plants.', 45)">
+            Add to cart
+          </button>
+        </div>
+        <!-- Product Card 3 -->
+        <div class="projects-card1">
+          <div class="image-container">
+            <img src="Market/IMG-20250222-WA0013.jpg" alt="Item 3 Image" />
+          </div>
+          <h3>Metalaxyl-M 35%WP</h3>
+          <p>Metalaxyl-M 35% WP is a systemic fungicide used to control oomycete diseases like Phytophthora and Pythium in crops, providing protective and curative action.</p>
+          <p class="price">Price: 80 EGP</p>
+          <button class="card-btn" onclick="addToCart('Metalaxyl-M 35%WP','Market/IMG-20250222-WA0013.jpg','Metalaxyl-M 35% WP is a systemic fungicide used to control oomycete diseases like Phytophthora and Pythium in crops, providing protective and curative action.', 80)">
+            Add to cart
+          </button>
+        </div>
+        <!-- Product Card 4 -->
+        <div class="projects-card1">
+          <div class="image-container">
+            <img src="Market/IMG-20250222-WA0012.jpg" alt="Item 4 Image" />
+          </div>
+          <h3>RidomilGold</h3>
+          <p>Ridomil Gold is a systemic fungicide containing metalaxyl-M, used to control oomycete fungi like Phytophthora and Pythium in various crops.</p>
+          <p class="price">Price: 70 EGP</p>
+          <button class="card-btn" onclick="addToCart('RidomilGold','Market/IMG-20250222-WA0012.jpg','Ridomil Gold is a systemic fungicide containing metalaxyl-M, used to control oomycete fungi like Phytophthora and Pythium in various crops.', 70)">
+            Add to cart
+          </button>
+        </div>
+        <!-- Product Card 5 -->
+        <div class="projects-card1">
+          <div class="image-container">
+            <img src="Market/IMG-20250222-WA0011.jpg" alt="Item 5 Image" />
+          </div>
+          <h3>Fosetyl-AI</h3>
+          <p>Fosetyl-Al is a systemic fungicide that controls oomycete fungi by enhancing plant defense mechanisms.</p>
+          <p class="price">Price: 90 EGP</p>
+          <button class="card-btn" onclick="addToCart('Fosetyl-AI','Market/IMG-20250222-WA0011.jpg','Fosetyl-Al is a systemic fungicide that controls oomycete fungi by enhancing plant defense mechanisms.', 90)">
+            Add to cart
+          </button>
+        </div>
+        <!-- Product Card 6 -->
+        <div class="projects-card1">
+          <div class="image-container">
+            <img src="Market/IMG-20250222-WA0010.jpg" alt="Item 6 Image" />
+          </div>
+          <h3>Propamocarb</h3>
+          <p>Propamocarb is a systemic fungicide that controls oomycete fungi like Pythium and Phytophthora, protecting crops from root rot and damping-off.</p>
+          <p class="price">Price: 60 EGP</p>
+          <button class="card-btn" onclick="addToCart('Propamocarb','Market/IMG-20250222-WA0010.jpg','Propamocarb is a systemic fungicide that controls oomycete fungi like Pythium and Phytophthora, protecting crops from root rot and damping-off.', 60)">
+            Add to cart
+          </button>
+        </div>
+      </div>
+      <!-- "My Products" button -->
+      <div class="my-products-btn-container" style="text-align: center; margin-top: 3rem;">
+        <button class="card-btn" onclick="window.location.href='products.html'">My Products</button>
+      </div>
+    </section>
+    
+    <footer class="footer">
+      <p>&copy; 2025 Jonathan. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Node (لو أضفنا حاجات لاحقًا)
+node_modules/
+dist/
+build/
+
+# Env (مش هنستخدمه للسرّيات دلوقتي)
+.env
