@@ -1,0 +1,3 @@
+export const SUPABASE_URL = 'https://myxeuqstpkjhfbizgspc.supabase.co';
+export const SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15eGV1cXN0cGtqaGZiaXpnc3BjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4MDI1MzksImV4cCI6MjA3ODM3ODUzOX0.SNbFJvdhsepcpWtvbhtjWco1e2_UNe0LpluqZUoyWKQ 
+export const FUNCTIONS_BASE = 'https://myxeuqstpkjhfbizgspc.supabase.co/functions/v1';

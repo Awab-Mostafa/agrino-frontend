@@ -2,7 +2,11 @@
 const STORAGE_KEY = "cartItems";
 
 function loadCart() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  } catch {
+    return [];
+  }
 }
 function saveCart(items) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
@@ -20,10 +24,9 @@ function updateCartBadge() {
   badge.textContent = totalQty > 0 ? totalQty : "";
 }
 
-// ===== Add to Cart =====
-function addToCart(name, image, description, price) {
+// ===== Add to Cart (يدعم id من الداتابيز) =====
+function addToCart(name, image, description, price, id) {
   let quantity = prompt("Enter the quantity for " + name + ":");
-
   if (quantity === null) return; // user canceled
   quantity = String(quantity).trim();
 
@@ -31,7 +34,6 @@ function addToCart(name, image, description, price) {
     alert("Please enter a valid quantity.");
     return;
   }
-
   quantity = parseInt(quantity, 10);
   if (quantity <= 0) {
     alert("Please enter a number greater than zero.");
@@ -46,15 +48,16 @@ function addToCart(name, image, description, price) {
 
   const cart = loadCart();
 
-  // دمج بالاسم (ولزيادة الدقة بنقارن كمان بالصورة لو حبيتي)
-  const idx = cart.findIndex(
-    (p) => p.name === name && p.image === image
+  // الأفضل الدمج بالـid لو موجود؛ لو مش موجود نرجع للاسم+الصورة
+  const idx = cart.findIndex((p) =>
+    id ? p.id === id : (p.name === name && p.image === image)
   );
 
   if (idx > -1) {
-    cart[idx].quantity += quantity;
+    cart[idx].quantity = Number(cart[idx].quantity || 0) + quantity;
   } else {
     cart.push({
+      id: id || null,
       name,
       image,
       description,
@@ -67,6 +70,8 @@ function addToCart(name, image, description, price) {
   updateCartBadge();
   alert(`${name} has been added to the cart. Quantity: ${quantity}`);
 }
+// مهم: علشان نقدر ننادي addToCart من الـHTML / سكريبتات الموديول
+window.addToCart = addToCart;
 
 // ===== Render Cart (My Products) =====
 function computeTotals(items) {
@@ -99,7 +104,7 @@ function displayCartItems() {
           <img src="${item.image}" alt="${item.name} Image">
         </div>
         <h3>${item.name}</h3>
-        <p>${item.description}</p>
+        <p>${item.description || ""}</p>
         <p class="price">Price: ${formatEGP(item.price)}</p>
 
         <div class="qty-row" style="display:flex;gap:.8rem;align-items:center;justify-content:center;margin:.4rem 0 1rem;">
@@ -159,7 +164,6 @@ function changeQuantity(index, delta) {
   const next = (cart[index].quantity || 0) + delta;
 
   if (next <= 0) {
-    // تأكيد الحذف لو وصلت للصفر
     if (confirm("Quantity will be 0. Remove this item?")) {
       cart.splice(index, 1);
     } else {
@@ -186,7 +190,7 @@ function clearCart() {
   displayCartItems();
 }
 
-// ===== Checkout Page =====
+// ===== Checkout Page (عرض السلة فقط) =====
 function displayCheckoutItems() {
   const container = document.getElementById("checkout-items");
   if (!container) return;
@@ -205,7 +209,7 @@ function displayCheckoutItems() {
       (item) => `
       <div class="checkout-item">
         <h3>${item.name}</h3>
-        <p>${item.description}</p>
+        <p>${item.description || ""}</p>
         <p class="price">Price: ${formatEGP(item.price)}</p>
         <p>Quantity: ${item.quantity}</p>
         <p><strong>Subtotal: ${formatEGP(
@@ -240,7 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   updateCartBadge();
 });
-
 
 // ===== Shrink Navbar on Scroll =====
 window.addEventListener("scroll", () => {

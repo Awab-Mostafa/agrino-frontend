@@ -1,0 +1,4 @@
+[functions.checkout]
+enabled = true        # لازم True علشان ما تتعملش Skip
+verify_jwt = false    # علشان نقدر نناديها من الفرونت
+entrypoint = "./functions/checkout/index.ts"

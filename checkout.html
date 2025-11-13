@@ -5,73 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vodafone Cash Payment</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
     <!-- Google Fonts and Boxicons -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+
     <style>
       /* Additional styling for the payment page */
-      .checkout-item {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        border: 1px solid #ccc;
-        padding: 1rem;
-        margin: 1rem 0;
+      .checkout-item{
+        display:flex;align-items:center;justify-content:flex-start;
+        border:1px solid #2a2a2a;padding:1rem;margin:1rem 0;border-radius:.5rem;
+        background:rgba(255,255,255,.03)
       }
-      .checkout-item img {
-        width: 100px;
-        height: auto;
-        margin-right: 1rem;
+      .checkout-item img{width:100px;height:auto;margin-right:1rem;border-radius:.4rem}
+      .checkout-details{text-align:left}
+
+      /* نموذج الدفع */
+      form#payment-form{
+        background:transparent;
+        padding:1.5rem;max-width:520px;margin:0 auto;text-align:left
       }
-      .checkout-details {
-        text-align: left;
+      form#payment-form .input-box{margin-bottom:1rem}
+      form#payment-form label{
+        display:block;margin-bottom:.5rem;font-weight:700;color:#fff;font-size:1.2rem
       }
-      /* تعديل تنسيق نموذج الدفع */
-      form#payment-form {
-        background: transparent; /* إزالة الخلفية البيضاء */
-        padding: 1.5rem;
-        /* إزالة الظل والفريم الأبيض */
-        max-width: 500px;
-        margin: 0 auto;
-        text-align: left;
+      form#payment-form input{
+        width:100%;padding:.6rem .8rem;background-color:#3A7D5C;border:none;border-radius:.3rem;color:#fff;font-size:1.05rem
       }
-      form#payment-form .input-box {
-        margin-bottom: 1rem;
-      }
-      form#payment-form label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-        color: #fff; /* تسميات باللون الأبيض */
-        font-size: 1.2rem; /* تكبير النص */
-      }
-      form#payment-form input {
-        width: 100%;
-        padding: 0.5rem;
-        background-color: #3A7D5C; /* اللون الأخضر للمستطيلات */
-        border: none;
-        border-radius: 0.3rem;
-        color: #fff; /* نص باللون الأبيض */
-        font-size: 1.1rem; /* تكبير النص داخل الحقول */
-      }
-      form#payment-form h3 {
-        color: #fff;
-        font-size: 1.6rem; /* تكبير عنوان النموذج */
-        margin-bottom: 1rem;
-      }
-      /* تكبير نص العناوين العامة */
-      .heading {
-        font-size: 2.5rem;
-        color: #fff;
-      }
+      form#payment-form h3{color:#fff;font-size:1.6rem;margin-bottom:1rem}
+      .heading{font-size:2.5rem;color:#fff}
+      .muted{color:#bbb;font-size:.95rem}
+      .error{color:#ff6b6b;margin-top:.8rem}
+      .success{color:#7dffb3;margin-top:.8rem}
     </style>
   </head>
+
   <body>
     <!-- Header -->
     <header class="header">
@@ -90,23 +59,24 @@
       </div>
     </header>
 
-    <!-- Vodafone Cash Payment Section -->
+    <!-- Checkout Section -->
     <section class="checkout-section" style="padding-top: 10rem; text-align: center;">
       <h2 class="heading">Vodafone Cash Payment</h2>
-      
-      <!-- Container to display the selected products with images and full price details -->
-      <div id="payment-details">
-        <!-- Products will be dynamically injected here -->
-      </div>
-      
-      <!-- Container to display the total amount -->
-      <div id="total-section" style="margin-top: 2rem;">
-        <!-- Total amount will be shown here -->
-      </div>
-      
-      <!-- Payment details form -->
-      <form id="payment-form" style="margin-top: 3rem;">
+
+      <!-- Selected products -->
+      <div id="payment-details"></div>
+
+      <!-- Total -->
+      <div id="total-section" style="margin-top: 1.5rem;"></div>
+
+      <!-- Payment form -->
+      <form id="payment-form" style="margin-top: 2rem;">
         <h3>Payment Details</h3>
+
+        <p class="muted" style="margin:.2rem 0 1rem;">
+          *سيتم إنشاء طلب شراء وتأكيده يدويًا بعد الدفع عبر فودافون كاش.
+        </p>
+
         <div class="input-box">
           <label for="name">Name:</label>
           <input type="text" id="name" placeholder="Enter your name" required />
@@ -123,71 +93,130 @@
           <label for="vodafone-number">Vodafone Cash Number:</label>
           <input type="text" id="vodafone-number" placeholder="Enter your Vodafone Cash number" required />
         </div>
-        <!-- تمت إزالة حقل الـ PIN -->
+
         <button type="submit" class="card-btn" style="margin-top: 1rem;">Confirm Payment</button>
+        <div id="form-msg" class="muted" style="margin-top:.6rem;"></div>
       </form>
     </section>
-    
+
     <!-- Footer -->
     <footer class="footer">
       <p>&copy; 2025 Jonathan. All Rights Reserved.</p>
     </footer>
-    
+
+    <!-- عرض عناصر السلة والتوتال -->
     <script>
-      // Function to display the payment details with product images and calculated totals
-      function displayPaymentDetails() {
+      function egp(n){ return `${Number(n||0).toLocaleString('ar-EG')} EGP`; }
+
+      function displayPaymentDetails(){
         const paymentContainer = document.getElementById("payment-details");
-        const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        const totalEl = document.getElementById("total-section");
+        const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+        if (!cartItems.length){
+          paymentContainer.innerHTML = "<p style='font-size:2rem;color:#fff'>No items in cart</p>";
+          totalEl.innerHTML = "";
+          return;
+        }
+
         let html = "";
         let total = 0;
-        
-        if (cartItems.length === 0) {
-          html = "<p style='font-size: 2rem; text-align: center; color: #fff;'>No items in cart</p>";
-        } else {
-          cartItems.forEach((item) => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            html += `
-              <div class="checkout-item">
-                <img src="${item.image}" alt="${item.name} Image">
-                <div class="checkout-details">
-                  <h3>${item.name}</h3>
-                  <p>${item.description}</p>
-                  <p class="price">Price: ${item.price} EGP x ${item.quantity} = ${itemTotal} EGP</p>
-                </div>
+
+        cartItems.forEach((item) => {
+          const itemTotal = Number(item.price) * Number(item.quantity);
+          total += itemTotal;
+          html += `
+            <div class="checkout-item">
+              <img src="${item.image}" alt="${item.name} Image">
+              <div class="checkout-details">
+                <h3>${item.name}</h3>
+                <p>${item.description || ""}</p>
+                <p class="price">Price: ${egp(item.price)} × ${item.quantity} = <strong>${egp(itemTotal)}</strong></p>
               </div>
-            `;
-          });
-        }
-        
+            </div>
+          `;
+        });
+
         paymentContainer.innerHTML = html;
-        // Display the total amount
-        document.getElementById("total-section").innerHTML = `<h2 style="color:#fff;">Total: ${total} EGP</h2>`;
+        totalEl.innerHTML = `<h2 style="color:#fff;">Total: ${egp(total)}</h2>`;
       }
-      
-      // Call displayPaymentDetails on page load
+
       window.addEventListener("DOMContentLoaded", displayPaymentDetails);
-      
-      // Payment form submission handler
-      document.getElementById("payment-form").addEventListener("submit", function (e) {
+    </script>
+
+    <!-- إرسال الطلب إلى دالة Supabase -->
+    <script type="module">
+      import { FUNCTIONS_BASE } from './config.js';
+
+      const form = document.getElementById('payment-form');
+      const msg  = document.getElementById('form-msg');
+
+      function loadCart(){
+        try { return JSON.parse(localStorage.getItem('cartItems')) || []; }
+        catch { return []; }
+      }
+
+      form.addEventListener('submit', async (e)=>{
         e.preventDefault();
-        // Retrieve form values
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const address = document.getElementById("address").value;
-        const vodafoneNumber = document.getElementById("vodafone-number").value;
-        
-        // Here you can add additional processing for payment, e.g., API calls, validations, etc.
-        // For demonstration, we show an alert with the collected information.
-        alert(`Payment confirmed!
-Name: ${name}
-Phone: ${phone}
-Address: ${address}
-Vodafone Cash Number: ${vodafoneNumber}`);
-        
-        // Optionally, clear the cart and redirect the user after payment confirmation
-        localStorage.removeItem("cartItems");
-        window.location.href = "index.html";
+        msg.textContent = '';
+
+        const name    = document.getElementById('name').value.trim();
+        const phone   = document.getElementById('phone').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const vfNo    = document.getElementById('vodafone-number').value.trim();
+
+        const cart = loadCart();
+        if (!cart.length){
+          alert('السلة فاضية.');
+          return;
+        }
+
+        // لازم العناصر يكون فيها id (UUID) من الداتابيز
+        const missingId = cart.find(it => !it.id);
+        if (missingId){
+          alert('في عنصر بالسلة بدون معرف (id). من فضلك أضِفه من صفحة السوق مرة أخرى.');
+          return;
+        }
+
+        const items = cart.map(it => ({
+          product_id: it.id,
+          quantity: Number(it.quantity || 1),
+        }));
+
+        // تعطيل الزر أثناء الإرسال
+        const btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true; btn.textContent = 'Processing...';
+
+        try{
+          const res = await fetch(`${FUNCTIONS_BASE}/checkout`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              items,
+              customer: { name, phone, address, vodafone_number: vfNo }
+            })
+          });
+
+          const data = await res.json().catch(()=> ({}));
+          if (!res.ok){
+            msg.className = 'error';
+            msg.textContent = data?.error || 'Unexpected error';
+            btn.disabled = false; btn.textContent = 'Confirm Payment';
+            return;
+          }
+
+          // Success
+          msg.className = 'success';
+          msg.textContent = `Order created successfully. Order ID: ${data.order_id} — Total: ${data.total} EGP`;
+          alert(`Order placed!\nOrder ID: ${data.order_id}\nTotal: ${data.total} EGP`);
+
+          localStorage.removeItem('cartItems');
+          window.location.href = 'index.html';
+        }catch(err){
+          msg.className = 'error';
+          msg.textContent = err?.message || 'Network error';
+          btn.disabled = false; btn.textContent = 'Confirm Payment';
+        }
       });
     </script>
   </body>
